@@ -1,0 +1,37 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="comm" namespace="/" extends="struts-default,json-default">
+		<action name="index" class="com.controller.comm.IndexServlet">
+			<result>/page/index.jsp</result>
+		</action>
+		<action name="*Action" class="com.controller.comm.UserLoginAction" method="{1}">
+			<result name="success" type="json">
+				<param name="root">jsonMap</param>
+			</result>
+		</action>
+		<action name="OrderAction" class="com.controller.comm.OrderAction">
+			<result>/page/index.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="token" />
+			<result name="invalid.token" type="redirectAction">
+				<param name="actionName">index</param>
+			</result>
+		</action>
+
+		<action name="*Detail" class="com.controller.comm.GetInComeDetail" method="{1}">
+			<result name="success" type="json">
+				<param name="root">jsonMap</param>
+			</result>
+		</action>
+	</package>
+	<package name="api" namespace="/api" extends="json-default">
+		<action name="*API" class="com.controller.comm.OrderApi" method="{1}">
+			<result type="json">
+				<param name="root">jsonMap</param>
+			</result>
+		</action>
+	</package>
+</struts>
