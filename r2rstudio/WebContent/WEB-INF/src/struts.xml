@@ -1,0 +1,99 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="default" extends="struts-default">
+		<default-action-ref name="main" />
+	</package>
+	<package name="comm" extends="struts-default,json-default">
+		<action name="index" class="com.servlet.comm.MainServlet" method="Index">
+			<result>/page/index.jsp</result>
+		</action>
+		<action name="main" class="com.servlet.comm.MainServlet">
+			<result>/page/main.jsp</result>
+		</action>
+		<action name="*Action" class="com.servlet.comm.LoginServlet" method="{1}">
+			<result name="logout_s" type="redirectAction">
+				<param name="actionName">index</param>
+			</result>
+			<result name="success" type="json">
+				<param name="root">jsonMap</param>
+			</result>
+		</action>
+	</package>
+	<package name="act" namespace="/act" extends="struts-default">
+		<action name="orderManage/*" class="com.servlet.act.OrderManageAction" method="{1}">
+			<result name="success">/page/act/OrderManage.jsp</result>
+			<result name="input">/page/act/OrderManage_edit.jsp</result>
+			<result name="upd" type="redirectAction">
+				<param name="actionName">orderManage/edit</param>
+				<param name="status">${status}</param>
+				<param name="seq">${seq}</param>
+				<param name="msg_ext">${msg_ext}</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="token">
+				<param name="includeMethods">updAction</param>
+			</interceptor-ref>
+			<result name="invalid.token" type="redirectAction">
+				<param name="actionName">orderManage</param>
+			</result>
+		</action>
+		<action name="incomeManage/*" class="com.servlet.act.IncomeManageAction" method="{1}">
+			<result name="success">/page/act/IncomeManage.jsp</result>
+			<result name="input">/page/act/IncomeManage_edit.jsp</result>
+			<result name="upd" type="redirectAction">
+				<param name="actionName">incomeManage/edit</param>
+				<param name="status">${status}</param>
+				<param name="seq">${seq}</param>
+				<param name="msg_ext">${msg_ext}</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="token">
+				<param name="includeMethods">updAction</param>
+			</interceptor-ref>
+			<result name="invalid.token" type="redirectAction">
+				<param name="actionName">incomeManage</param>
+			</result>
+		</action>
+		<action name="indexNoticeMangage/*" class="com.servlet.act.IndexNoticeAction" method="{1}">
+			<result name="success">/page/act/IndexNoticeEdit.jsp</result>
+			<result name="upd" type="redirectAction">
+				<param name="actionName">indexNoticeMangage</param>
+				<param name="msg_ext">${msg_ext}</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="token">
+				<param name="includeMethods">updAction</param>
+			</interceptor-ref>
+			<result name="invalid.token" type="redirectAction">
+				<param name="actionName">indexNoticeMangage</param>
+			</result>
+		</action>
+		<action name="newsManage/*" class="com.servlet.act.NewsManageAction" method="{1}">
+			<result name="success">/page/act/NewsManage.jsp</result>
+			<result name="input">/page/act/NewsManage_edit.jsp</result>
+			<result name="upd" type="redirectAction">
+				<param name="actionName">orderManage/edit</param>
+				<param name="status">${status}</param>
+				<param name="seq">${seq}</param>
+				<param name="msg_ext">${msg_ext}</param>
+			</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="token">
+				<param name="includeMethods">updAction</param>
+			</interceptor-ref>
+			<result name="invalid.token" type="redirectAction">
+				<param name="actionName">newsManage</param>
+			</result>
+		</action>
+	</package>
+	<package name="api" namespace="/api" extends="struts-default,json-default">
+	<action name="*Action" class="com.servlet.api.GetAndroidPushVal" method="{1}">
+			<result name="success" type="json">
+				<param name="root">jsonMap</param>
+			</result>
+		</action>
+	
+	</package>
+</struts>
