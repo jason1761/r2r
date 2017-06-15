@@ -18,7 +18,7 @@ public class SendMail {
 	private Statement stmt = null;
 	private ResultSet rs = null;
 	private final String username = "taichung.r2r@gmail.com";
-	private final String password = "2udiajul";
+	private final String password = "";
 	String host = "smtp.gmail.com";
 	int port = 587;
 	private StringBuffer sql = new StringBuffer("");
